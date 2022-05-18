@@ -1,7 +1,7 @@
-const cors = require("cors");
-const express = require('express')
+import cors from "cors";
+import express from 'express';
 const app = express()
-
+import db from './config/db.js'
 
 
 var corsOptions = {
@@ -11,7 +11,6 @@ var corsOptions = {
 //Access-Control-Allow-Origin: *
 app.use(cors(corsOptions));
 
-// axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
 let count="1";
 
@@ -27,3 +26,11 @@ const background=function() {
 }
 
 background()
+db.connect();
+
+db.query('SELECT * FROM role', function(err, rows, fields) {
+  if (err) throw err;
+  console.log('The solution is: ', rows);
+});
+
+db.end();
