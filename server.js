@@ -1,16 +1,28 @@
-import cors from "cors";
-import express from 'express';
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const express = require('express');
 const app = express()
-import db from './config/db.js'
 
 
 var corsOptions = {
   origin: 
     "http://localhost:8080"
 };
-//Access-Control-Allow-Origin: *
+
 app.use(cors(corsOptions));
 
+// parse requests of content-type - application/json
+app.use(bodyParser.json());
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
+const database = require("./app/models");
+database.sequelize.sync();
+
+// In development, you may need to drop existing tables and re-sync database. Just use force: true as following code:
+database.sequelize.sync({ force: true }).then(() => {
+  console.log("Drop and re-sync database.");
+});
 
 let count="1";
 
@@ -19,18 +31,9 @@ app.get('/', (req, res) => {
 })
 app.listen(3000, () => console.log('localhost 3000'))
 
-const background=function() {
+const background= () => {
     console.log('backgroung executed', count);
     setTimeout(background, 5000);
     count++;
 }
-
 background()
-db.connect();
-
-db.query('SELECT * FROM role', function(err, rows, fields) {
-  if (err) throw err;
-  console.log('The solution is: ', rows);
-});
-
-db.end();
