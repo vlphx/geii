@@ -24,4 +24,3 @@ module.exports ={
 
 
 // export default db;
-// sequelize-auto -h localhost -d geii_db -u root -x  -p 3306  --dialect mysql -c './app/config' -o './app/models' -t user
