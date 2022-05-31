@@ -1,5 +1,5 @@
 const db = require("../models");
-const Role = db.roleModel;
+const SupportCours = db.supportCoursModel;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
@@ -11,34 +11,34 @@ exports.create = (req, res) => {
     return;
   }
 
-  // Create a role
-  const role = {
-    role_name: req.body.role_name,
+  // Create a SupportCours
+  const supportCours = {
+
     // created_at: req.body.created_at,
     // updated_at: req.body.updated_at
   };
 
-  // Save role in the database
-  Role.create(role)
+  // Save SupportCours in the database
+  SupportCours.create(supportCours)
     .then((data) => {
       res.status(200).send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred while creating the role.",
+        message: err.message || "Some error occurred while creating the SupportCours.",
       });
     });
 };
 
 exports.findAll = (req, res) => {
-  Role.findAll({
+  SupportCours.findAll({
   })
     .then((data) => {
       res.status(200).send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred while retrieving roles.",
+        message: err.message || "Some error occurred while retrieving SupportCourss.",
       });
     });
 };
@@ -46,38 +46,38 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Role.findByPk(id)
+  SupportCours.findByPk(id)
     .then((data) => {
       res.status(200).send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving role with id=" + id,
+        message: "Error retrieving SupportCours with id=" + id,
       });
     });
 };
 
-// Delete a role with the specified id in the request
+// Delete a SupportCours with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Role.destroy({
+  SupportCours.destroy({
     where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
         res.status(200).send({
-          message: "role was deleted successfully!",
+          message: "SupportCours was deleted successfully!",
         });
       } else {
         res.status(400).send({
-          message: `Cannot delete role with id=${id}. Maybe role was not found!`,
+          message: `Cannot delete SupportCours with id=${id}. Maybe SupportCours was not found!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not role role with id=" + id,
+        message: "Could not SupportCours SupportCours with id=" + id,
       });
     });
 };

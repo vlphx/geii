@@ -1,4 +1,5 @@
 
+// https://www.bezkoder.com/sequelize-associate-many-to-many/
 //const {createConnection}  = require('mysql');
 module.exports ={
   host     : 'localhost',

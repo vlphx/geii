@@ -1,5 +1,5 @@
 const db = require("../models");
-const Role = db.roleModel;
+const Matiere = db.matiereModel;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
@@ -11,34 +11,35 @@ exports.create = (req, res) => {
     return;
   }
 
-  // Create a role
-  const role = {
-    role_name: req.body.role_name,
+  // Create a Matiere
+  const matiere = {
+    matiere_id: req.params.matiere_id,
+    matiere_name: req.body.matiere_name,
     // created_at: req.body.created_at,
     // updated_at: req.body.updated_at
   };
 
-  // Save role in the database
-  Role.create(role)
+  // Save Matiere in the database
+  Matiere.create(matiere)
     .then((data) => {
       res.status(200).send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred while creating the role.",
+        message: err.message || "Some error occurred while creating the matiere.",
       });
     });
 };
 
 exports.findAll = (req, res) => {
-  Role.findAll({
+  Matiere.findAll({
   })
     .then((data) => {
       res.status(200).send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred while retrieving roles.",
+        message: err.message || "Some error occurred while retrieving matieres.",
       });
     });
 };
@@ -46,38 +47,38 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Role.findByPk(id)
+  Matiere.findByPk(id)
     .then((data) => {
       res.status(200).send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving role with id=" + id,
+        message: "Error retrieving Matiere with id=" + id,
       });
     });
 };
 
-// Delete a role with the specified id in the request
+// Delete a matiere with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Role.destroy({
+  Matiere.destroy({
     where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
         res.status(200).send({
-          message: "role was deleted successfully!",
+          message: "Matiere was deleted successfully!",
         });
       } else {
         res.status(400).send({
-          message: `Cannot delete role with id=${id}. Maybe role was not found!`,
+          message: `Cannot delete Matiere with id=${id}. Maybe Matiere was not found!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not role role with id=" + id,
+        message: "Could not Matiere Matiere with id=" + id,
       });
     });
 };
