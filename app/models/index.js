@@ -34,6 +34,8 @@ const sequelize = new Sequelize(dbConfig.database, dbConfig.user, dbConfig.passw
 const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
+db.initModels = require("../models/init-models.js")(sequelize, Sequelize.DataTypes);
+module.exports = db;
 
 // db.roleModel = require("../models/role.js")(
 //   sequelize,
@@ -65,6 +67,4 @@ db.sequelize = sequelize;
 //   Sequelize.DataTypes
 // );
 
-db.initModels = require("../models/init-models.js")(sequelize, Sequelize.DataTypes);
-module.exports = db;
 
