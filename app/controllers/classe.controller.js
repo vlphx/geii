@@ -1,5 +1,6 @@
 const db = require("../models");
 const Classe = db.classeModel;
+const User = db.userModel;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
@@ -33,6 +34,17 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
   Classe.findAll({
+            include: [
+      { 
+        model: User,
+        as: 'user',
+        attributes: ["user_id", "user_pwd", "user_name", "user_firstname", "user_tel", "user_mail", "user_address", "user_siret", "account_validity"],
+        through: {
+          attributes: ["classe_id", "user_id"]
+        }
+      }
+
+    ]
   })
     .then((data) => {
       res.status(200).send(data);
@@ -47,7 +59,19 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Classe.findByPk(id)
+  Classe.findByPk(id, { 
+      include: [
+      { 
+        model: User,
+        as: 'user',
+        attributes: ["user_id", "user_pwd", "user_name", "user_firstname", "user_tel", "user_mail", "user_address", "user_siret", "account_validity"],
+        through: {
+          attributes: ["classe_id", "user_id"]
+        }
+      }
+
+    ]
+  } )
     .then((data) => {
       res.status(200).send(data);
     })

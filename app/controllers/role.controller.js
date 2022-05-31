@@ -1,5 +1,6 @@
 const db = require("../models");
 const Role = db.roleModel;
+const User = db.userModel;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
@@ -32,6 +33,17 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
   Role.findAll({
+        include: [
+      { 
+        model: User,
+        as: 'user',
+        attributes: ["user_id", "user_pwd", "user_name", "user_firstname", "user_tel", "user_mail", "user_address", "user_siret", "account_validity"],
+        through: {
+          attributes: ["role_id", "user_id"]
+        }
+      }
+
+    ]
   })
     .then((data) => {
       res.status(200).send(data);
@@ -46,7 +58,19 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Role.findByPk(id)
+  Role.findByPk(id, { 
+            include: [
+      { 
+        model: User,
+        as: 'user',
+        attributes: ["user_id", "user_pwd", "user_name", "user_firstname", "user_tel", "user_mail", "user_address", "user_siret", "account_validity"],
+        through: {
+          attributes: ["role_id", "user_id"]
+        }
+      }
+
+    ]
+  })
     .then((data) => {
       res.status(200).send(data);
     })

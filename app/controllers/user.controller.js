@@ -1,5 +1,9 @@
 const db = require("../models");
 const User = db.userModel;
+const Role = db.roleModel;
+const Classe = db.classeModel;
+const Offres = db.offresModel;
+const Matiere = db.matiereModel;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
@@ -40,6 +44,41 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
   User.findAll({
+    include: [
+      { 
+        model: Role,
+        as: 'role',
+        attributes: ["role_id", "role_name"],
+        through: {
+          attributes: ["role_id", "user_id"]
+        }
+      },
+            { 
+        model: Classe,
+        as: 'classe',
+        attributes: ["classe_id", "classe_name"],
+        through: {
+          attributes: ["classe_id", "user_id"]
+        }
+      },
+            { 
+        model: Offres,
+        as: 'offres',
+        attributes: ["offre_id", "offre_name", "offre_type"],
+        through: {
+          attributes: ["offre_id", "user_id"]
+        }
+      },
+            { 
+        model: Matiere,
+        as: 'matiere',
+        attributes: ["matiere_id", "matiere_name"],
+        through: {
+          attributes: ["matiere_id", "user_id", "note"]
+        }
+      }
+
+    ]
   })
     .then((data) => {
       res.status(200).send(data);
@@ -54,7 +93,43 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  User.findByPk(id)
+  User.findByPk(id, { 
+        include: [
+      { 
+        model: Role,
+        as: 'role',
+        attributes: ["role_id", "role_name"],
+        through: {
+          attributes: ["role_id", "user_id"]
+        }
+      },
+            { 
+        model: Classe,
+        as: 'classe',
+        attributes: ["classe_id", "classe_name"],
+        through: {
+          attributes: ["classe_id", "user_id"]
+        }
+      },
+            { 
+        model: Offres,
+        as: 'offres',
+        attributes: ["offre_id", "offre_name", "offre_type"],
+        through: {
+          attributes: ["offre_id", "user_id"]
+        }
+      },
+                        { 
+        model: Matiere,
+        as: 'matiere',
+        attributes: ["matiere_id", "matiere_name"],
+        through: {
+          attributes: ["matiere_id", "user_id", "note"]
+        }
+      }
+
+    ]
+  } )
     .then((data) => {
       res.status(200).send(data);
     })

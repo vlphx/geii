@@ -1,5 +1,6 @@
 const db = require("../models");
 const Offres = db.offresModel;
+const User = db.userModel;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
@@ -12,7 +13,7 @@ exports.create = (req, res) => {
   }
 
   // Create a Offre
-  const offre = {
+  const offres = {
         offre_id: req.body.offre_id,
     offre_name: req.body.offre_name,
     offre_type: req.body.offre_type,
@@ -21,7 +22,7 @@ exports.create = (req, res) => {
   };
 
   // Save Offre in the database
-  Offre.create(offre)
+  Offres.create(offres)
     .then((data) => {
       res.status(200).send(data);
     })
@@ -33,7 +34,18 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  Offre.findAll({
+  Offres.findAll({
+                    include: [
+      { 
+        model: User,
+        as: 'user',
+        attributes: ["user_id", "user_pwd", "user_name", "user_firstname", "user_tel", "user_mail", "user_address", "user_siret", "account_validity"],
+        through: {
+          attributes: ["offre_id", "user_id"]
+        }
+      }
+
+    ]
   })
     .then((data) => {
       res.status(200).send(data);
@@ -48,7 +60,19 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Offre.findByPk(id)
+  Offres.findByPk(id, {
+                        include: [
+      { 
+        model: User,
+        as: 'user',
+        attributes: ["user_id", "user_pwd", "user_name", "user_firstname", "user_tel", "user_mail", "user_address", "user_siret", "account_validity"],
+        through: {
+          attributes: ["offre_id", "user_id"]
+        }
+      }
+
+    ]
+  })
     .then((data) => {
       res.status(200).send(data);
     })
@@ -63,7 +87,7 @@ exports.findOne = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Offre.destroy({
+  Offres.destroy({
     where: { id: id },
   })
     .then((num) => {
