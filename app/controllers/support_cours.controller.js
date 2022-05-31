@@ -1,5 +1,6 @@
 const db = require("../models");
-const SupportCours = db.supportCoursModel;
+const { supportCours } = db.initModels;
+// const user = db.userModel;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
@@ -11,34 +12,34 @@ exports.create = (req, res) => {
     return;
   }
 
-  // Create a SupportCours
-  const supportCours = {
+  // Create a supportCours
+  const supportCoursObject = {
 
     // created_at: req.body.created_at,
     // updated_at: req.body.updated_at
   };
 
-  // Save SupportCours in the database
-  SupportCours.create(supportCours)
+  // Save supportCours in the database
+  supportCours.create(supportCoursObject)
     .then((data) => {
       res.status(200).send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred while creating the SupportCours.",
+        message: err.message || "Some error occurred while creating the supportCours.",
       });
     });
 };
 
 exports.findAll = (req, res) => {
-  SupportCours.findAll({
+  supportCours.findAll({
   })
     .then((data) => {
       res.status(200).send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred while retrieving SupportCourss.",
+        message: err.message || "Some error occurred while retrieving supportCourss.",
       });
     });
 };
@@ -46,38 +47,66 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  SupportCours.findByPk(id)
+  supportCours.findByPk(id)
     .then((data) => {
       res.status(200).send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving SupportCours with id=" + id,
+        message: "Error retrieving supportCours with id=" + id,
       });
     });
 };
 
-// Delete a SupportCours with the specified id in the request
+exports.update = (req, res) => {
+  const id = req.params.id;
+
+  supportCours.update(req.body, {
+    where: {id: id},
+  //           include: [
+  //     { 
+  //       model: user,
+  //       as: 'user',
+  //       attributes: ["user_id", "user_pwd", "user_name", "user_firstname", "user_tel", "user_mail", "user_address", "user_siret", "account_validity"],
+  //       through: {
+  //         attributes: ["role_id", "user_id"]
+  //       }
+  //     }
+
+  //   ]
+  })
+    .then(() => {
+      res.status(200).send({ message: "supportCours was updated successfully", });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error retrieving user with id=" + id,
+      });
+    });
+};
+
+
+// Delete a supportCours with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  SupportCours.destroy({
+  supportCours.destroy({
     where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
         res.status(200).send({
-          message: "SupportCours was deleted successfully!",
+          message: "supportCours was deleted successfully!",
         });
       } else {
         res.status(400).send({
-          message: `Cannot delete SupportCours with id=${id}. Maybe SupportCours was not found!`,
+          message: `Cannot delete supportCours with id=${id}. Maybe supportCours was not found!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not SupportCours SupportCours with id=" + id,
+        message: "Could not supportCours supportCours with id=" + id,
       });
     });
 };

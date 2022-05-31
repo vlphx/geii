@@ -1,6 +1,6 @@
 const db = require("../models");
-const Offres = db.offresModel;
-const User = db.userModel;
+const { offres, user} = db.initModels;
+// const user = db.userModel;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
@@ -13,8 +13,8 @@ exports.create = (req, res) => {
   }
 
   // Create a Offre
-  const offres = {
-        offre_id: req.body.offre_id,
+  const offresObject = {
+    offre_id: req.body.offre_id,
     offre_name: req.body.offre_name,
     offre_type: req.body.offre_type,
     // created_at: req.body.created_at,
@@ -22,7 +22,7 @@ exports.create = (req, res) => {
   };
 
   // Save Offre in the database
-  Offres.create(offres)
+  offres.create(offresObject)
     .then((data) => {
       res.status(200).send(data);
     })
@@ -34,7 +34,7 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  Offres.findAll({
+  offres.findAll({
                     include: [
       { 
         model: User,
@@ -52,7 +52,7 @@ exports.findAll = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred while retrieving Offres.",
+        message: err.message || "Some error occurred while retrieving offres.",
       });
     });
 };
@@ -60,7 +60,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Offres.findByPk(id, {
+  offres.findByPk(id, {
                         include: [
       { 
         model: User,
@@ -83,11 +83,41 @@ exports.findOne = (req, res) => {
     });
 };
 
+
+exports.update = (req, res) => {
+  const id = req.params.id;
+
+  offres.update(req.body, {
+    where: {id: id},
+  //           include: [
+  //     { 
+  //       model: user,
+  //       as: 'user',
+  //       attributes: ["user_id", "user_pwd", "user_name", "user_firstname", "user_tel", "user_mail", "user_address", "user_siret", "account_validity"],
+  //       through: {
+  //         attributes: ["role_id", "user_id"]
+  //       }
+  //     }
+
+  //   ]
+  })
+    .then(() => {
+      res.status(200).send({ message: "offres was updated successfully", });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error retrieving user with id=" + id,
+      });
+    });
+};
+
+
+
 // Delete a Offre with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Offres.destroy({
+  offres.destroy({
     where: { id: id },
   })
     .then((num) => {

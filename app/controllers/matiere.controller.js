@@ -1,7 +1,8 @@
 const db = require("../models");
-const Matiere = db.matiereModel;
-const User = db.userModel;
-const Op = db.Sequelize.Op;
+const { matiere } = db.initModels;
+// const User = db.userModel;
+const Op = db.Sequeliz
+
 
 exports.create = (req, res) => {
   // Validate request
@@ -12,16 +13,16 @@ exports.create = (req, res) => {
     return;
   }
 
-  // Create a Matiere
-  const matiere = {
+  // Create a matiere
+  const matiereObject = {
     matiere_id: req.params.matiere_id,
     matiere_name: req.body.matiere_name,
     // created_at: req.body.created_at,
     // updated_at: req.body.updated_at
   };
 
-  // Save Matiere in the database
-  Matiere.create(matiere)
+  // Save matiere in the database
+  matiere.create(matiereObject)
     .then((data) => {
       res.status(200).send(data);
     })
@@ -33,7 +34,7 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-  Matiere.findAll({
+  matiere.findAll({
                     include: [
       { 
         model: User,
@@ -59,7 +60,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Matiere.findByPk(id, { 
+  matiere.findByPk(id, { 
     include: [
       { 
         model: User,
@@ -77,32 +78,63 @@ exports.findOne = (req, res) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Error retrieving Matiere with id=" + id,
+        message: "Error retrieving matiere with id=" + id,
       });
     });
 };
+
+
+
+exports.update = (req, res) => {
+  const id = req.params.id;
+
+  matiere.update(req.body, {
+    where: {id: id},
+  //           include: [
+  //     { 
+  //       model: User,
+  //       as: 'user',
+  //       attributes: ["user_id", "user_pwd", "user_name", "user_firstname", "user_tel", "user_mail", "user_address", "user_siret", "account_validity"],
+  //       through: {
+  //         attributes: ["role_id", "user_id"]
+  //       }
+  //     }
+
+  //   ]
+  })
+    .then(() => {
+      res.status(200).send({ message: "user was updated successfully", });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error retrieving user with id=" + id,
+      });
+    });
+};
+
+
 
 // Delete a matiere with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Matiere.destroy({
+  matiere.destroy({
     where: { id: id },
   })
     .then((num) => {
       if (num == 1) {
         res.status(200).send({
-          message: "Matiere was deleted successfully!",
+          message: "matiere was deleted successfully!",
         });
       } else {
         res.status(400).send({
-          message: `Cannot delete Matiere with id=${id}. Maybe Matiere was not found!`,
+          message: `Cannot delete matiere with id=${id}. Maybe matiere was not found!`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not Matiere Matiere with id=" + id,
+        message: "Could not matiere matiere with id=" + id,
       });
     });
 };

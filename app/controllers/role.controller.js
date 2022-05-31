@@ -1,6 +1,5 @@
 const db = require("../models");
-const { role } = db.initModels;
-// const User = db.userModel;
+const { role, user } = db.initModels;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
@@ -13,14 +12,14 @@ exports.create = (req, res) => {
   }
 
   // Create a role
-  const roles = {
+  const roleObject = {
     role_name: req.body.role_name,
     // created_at: req.body.created_at,
     // updated_at: req.body.updated_at
   };
 
   // Save role in the database
-  role.create(roles)
+  role.create(roleObject)
     .then((data) => {
       res.status(200).send(data);
     })
@@ -35,7 +34,7 @@ exports.findAll = (req, res) => {
   role.findAll({
     //     include: [
     //   { 
-    //     model: User,
+    //     model: user,
     //     as: 'user',
     //     attributes: ["user_id", "user_pwd", "user_name", "user_firstname", "user_tel", "user_mail", "user_address", "user_siret", "account_validity"],
     //     through: {
@@ -61,7 +60,7 @@ exports.findOne = (req, res) => {
   role.findByPk(id, { 
   //           include: [
   //     { 
-  //       model: User,
+  //       model: user,
   //       as: 'user',
   //       attributes: ["user_id", "user_pwd", "user_name", "user_firstname", "user_tel", "user_mail", "user_address", "user_siret", "account_validity"],
   //       through: {
@@ -88,7 +87,7 @@ exports.update = (req, res) => {
     where: {id: id},
   //           include: [
   //     { 
-  //       model: User,
+  //       model: user,
   //       as: 'user',
   //       attributes: ["user_id", "user_pwd", "user_name", "user_firstname", "user_tel", "user_mail", "user_address", "user_siret", "account_validity"],
   //       through: {
@@ -99,7 +98,7 @@ exports.update = (req, res) => {
   //   ]
   })
     .then(() => {
-      res.status(200).send({ message: "Tag was updated successfully", });
+      res.status(200).send({ message: "role was updated successfully", });
     })
     .catch((err) => {
       res.status(500).send({
