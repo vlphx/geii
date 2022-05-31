@@ -3,7 +3,7 @@ module.exports = app => {
 
     var router = require("express").Router();
 
-    // Create a new rle 
+    // Create a new user 
     router.post("/",  user.create);
 
     // Retrieve all tag

@@ -3,8 +3,8 @@
 //const {createConnection}  = require('mysql');
 module.exports ={
   host     : 'localhost',
-  user     : 'oo',
-  password : 'oo',
+  user     : 'root',
+  password : '',
   database : 'geii_db2',
   dialect: 'mysql',
   // First five parameters are for MySQL connection.

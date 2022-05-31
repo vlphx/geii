@@ -12,7 +12,7 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
-app.use(bodyParser.json());
+app.use(bodyParser.json()); 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -34,6 +34,8 @@ app.get('/', (req, res) => {
 app.listen(3000, () => console.log('localhost 3000'))
 
 require("./app/routes/role.routes")(app);
+require("./app/routes/user.routes")(app);
+
 // const background= () => {
 //     console.log('backgroung executed', count);
 //     setTimeout(background, 5000);
