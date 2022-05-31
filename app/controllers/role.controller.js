@@ -81,6 +81,33 @@ exports.findOne = (req, res) => {
     });
 };
 
+exports.update = (req, res) => {
+  const id = req.params.id;
+
+  role.update(req.body, {
+    where: {id: id},
+  //           include: [
+  //     { 
+  //       model: User,
+  //       as: 'user',
+  //       attributes: ["user_id", "user_pwd", "user_name", "user_firstname", "user_tel", "user_mail", "user_address", "user_siret", "account_validity"],
+  //       through: {
+  //         attributes: ["role_id", "user_id"]
+  //       }
+  //     }
+
+  //   ]
+  })
+    .then(() => {
+      res.status(200).send({ message: "Tag was updated successfully", });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error retrieving role with id=" + id,
+      });
+    });
+};
+
 // Delete a role with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
