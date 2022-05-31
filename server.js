@@ -16,13 +16,14 @@ app.use(bodyParser.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const database = require("./app/models");
+const database = require("./app/models/");
+
 database.sequelize.sync();
 
 // In development, you may need to drop existing tables and re-sync database. Just use force: true as following code:
-database.sequelize.sync({ force: true }).then(() => {
-  console.log("Drop and re-sync database.");
-});
+//database.sequelize.sync({ force: true }).then(() => {
+//  console.log("Drop and re-sync database.");
+//});
 
 let count="1";
 
@@ -30,10 +31,3 @@ app.get('/', (req, res) => {
   res.json({"changed" :count});
 })
 app.listen(3000, () => console.log('localhost 3000'))
-
-const background= () => {
-    console.log('backgroung executed', count);
-    setTimeout(background, 5000);
-    count++;
-}
-background()

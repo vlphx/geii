@@ -20,7 +20,9 @@ function initModels(sequelize) {
   var note = _note(sequelize, DataTypes);
   var offres = _offres(sequelize, DataTypes);
   var role = _role(sequelize, DataTypes);
+
   var support_cours = _support_cours(sequelize, DataTypes);
+
   var user = _user(sequelize, DataTypes);
   var user_classe = _user_classe(sequelize, DataTypes);
   var user_offre = _user_offre(sequelize, DataTypes);
@@ -52,18 +54,25 @@ function initModels(sequelize) {
   matiere.hasMany(note, { as: "notes", foreignKey: "matiere_id"});
   user_offre.belongsTo(offres, { as: "offre", foreignKey: "offre_id"});
   offres.hasMany(user_offre, { as: "user_offres", foreignKey: "offre_id"});
-  user_role.belongsTo(role, { as: "role", foreignKey: "role_id"});
   role.hasMany(user_role, { as: "user_roles", foreignKey: "role_id"});
   note.belongsTo(user, { as: "user", foreignKey: "user_id"});
-  user.hasMany(note, { as: "notes", foreignKey: "user_id"});
+
   support_cours.belongsTo(user, { as: "user", foreignKey: "user_id"});
+
+
+  user_role.belongsTo(user, { as: "user", foreignKey: "user_id"});
+  user_role.belongsTo(role, { as: "role", foreignKey: "role_id"});
+
+
+  user.hasMany(note, { as: "notes", foreignKey: "user_id"});
+  user.hasMany(user_role, { as: "user_roles", foreignKey: "user_id"});
   user.hasMany(support_cours, { as: "support_cours", foreignKey: "user_id"});
   user_classe.belongsTo(user, { as: "user", foreignKey: "user_id"});
   user.hasMany(user_classe, { as: "user_classes", foreignKey: "user_id"});
   user_offre.belongsTo(user, { as: "user", foreignKey: "user_id"});
   user.hasMany(user_offre, { as: "user_offres", foreignKey: "user_id"});
-  user_role.belongsTo(user, { as: "user", foreignKey: "user_id"});
-  user.hasMany(user_role, { as: "user_roles", foreignKey: "user_id"});
+
+
 
   return {
     classe,

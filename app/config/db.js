@@ -3,9 +3,9 @@
 //const {createConnection}  = require('mysql');
 module.exports ={
   host     : 'localhost',
-  user     : 'root',
-  password : '',
-  database : 'geii_db',
+  user     : 'oo',
+  password : 'oo',
+  database : 'geii_db2',
   dialect: 'mysql',
   // First five parameters are for MySQL connection.
   // pool is optional, it will be used for Sequelize connection pool configuration:

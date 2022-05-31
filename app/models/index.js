@@ -1,5 +1,23 @@
 const dbConfig = require("../config/db.js");
 const Sequelize = require("sequelize");
+const mysql = require("mysql2/promise");
+
+try {
+  mysql.createConnection({
+    host: dbConfig.host,
+    user: dbConfig.user,
+    password: dbConfig.password,
+    }).then(connection => {
+      connection.query(`CREATE DATABASE IF NOT EXISTS ` + dbConfig.database + `;`)
+        .then(result => {
+          console.log("Database " + dbConfig.database + " created or successfully checked !")
+        })
+  });
+} catch (error) {
+  console.error(error);
+}
+
+
 
 const sequelize = new Sequelize(dbConfig.database, dbConfig.user, dbConfig.password, {
     host: dbConfig.host,
