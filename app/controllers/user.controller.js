@@ -40,41 +40,41 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
   user.findAll({
-    include: [
-      { 
-        model: role,
-        as: 'role',
-        attributes: ["role_id", "role_name"],
-        through: {
-          attributes: ["role_id", "user_id"]
-        }
-      },
-            { 
-        model: classe,
-        as: 'classe',
-        attributes: ["classe_id", "classe_name"],
-        through: {
-          attributes: ["classe_id", "user_id"]
-        }
-      },
-            { 
-        model: offres,
-        as: 'offres',
-        attributes: ["offre_id", "offre_name", "offre_type"],
-        through: {
-          attributes: ["offre_id", "user_id"]
-        }
-      },
-            { 
-        model: matiere,
-        as: 'matiere',
-        attributes: ["matiere_id", "matiere_name"],
-        through: {
-          attributes: ["matiere_id", "user_id", "note"]
-        }
-      }
+    // include: [
+    //   { 
+    //     model: role,
+    //     as: 'role',
+    //     attributes: ["role_id", "role_name"],
+    //     through: {
+    //       attributes: ["role_id", "user_id"]
+    //     }
+    //   },
+    //         { 
+    //     model: classe,
+    //     as: 'classe',
+    //     attributes: ["classe_id", "classe_name"],
+    //     through: {
+    //       attributes: ["classe_id", "user_id"]
+    //     }
+    //   },
+    //         { 
+    //     model: offres,
+    //     as: 'offres',
+    //     attributes: ["offre_id", "offre_name", "offre_type"],
+    //     through: {
+    //       attributes: ["offre_id", "user_id"]
+    //     }
+    //   },
+    //         { 
+    //     model: matiere,
+    //     as: 'matiere',
+    //     attributes: ["matiere_id", "matiere_name"],
+    //     through: {
+    //       attributes: ["matiere_id", "user_id", "note"]
+    //     }
+    //   }
 
-    ]
+    // ]
   })
     .then((data) => {
       res.status(200).send(data);
