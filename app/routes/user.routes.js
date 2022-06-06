@@ -19,7 +19,9 @@ module.exports = app => {
     router.put("/:id", user.update);
 
     // Delete a user with id (verify if a valid token is in the request and if the user is an admin)
-    router.delete("/:id",  user.delete);
+    router.delete("/:id", user.delete);
+    
+    router.get("/userrole/:userId", user.findUserRoleByUserId)
 
 
 

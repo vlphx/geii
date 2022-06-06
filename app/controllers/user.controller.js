@@ -1,5 +1,5 @@
 const db = require("../models");
-const { user, matiere, role, classe, offres } = db.initModels;
+const { user, user_role, matiere, role, classe, offres } = db.initModels;
 // const user = db.userModel;
 const Op = db.Sequelize.Op;
 
@@ -86,6 +86,7 @@ exports.findAll = (req, res) => {
       });
     });
 };
+
 
 exports.findOne = (req, res) => {
   const id = req.params.id;
@@ -241,5 +242,29 @@ exports.delete = (req, res) => {
       res.status(500).send({
         message: "Could not user user with id=" + id,
       });
+    });
+};
+
+
+exports.findUserRoleByUserId = (req, res) => {
+  const userId = req.params.userId;
+
+
+  user.findByPk(userId, { 
+        include: [
+      {
+        
+        model: user_role,
+        as: 'user_roles',
+        where: { user_id: userId }
+      }
+    ]
+  } )
+    .then((data) => {
+      role.findByPk(data.dataValues.user_roles[0].dataValues.role_id).then((data2) => {res.status(200).send(data2);}).catch((err2) => {res.status(200).send(data);console.log(err2)})
+      
+    })
+    .catch((err) => {
+      res.status(500).send(false);
     });
 };
