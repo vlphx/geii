@@ -3,7 +3,7 @@ module.exports = {
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'geii_db2',
+  database: 'geii_db',
   dialect: 'mysql',
   // First five parameters are for MySQL connection.
   // pool is optional, it will be used for Sequelize connection pool configuration:
