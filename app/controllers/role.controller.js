@@ -14,8 +14,7 @@ exports.create = (req, res) => {
   // Create a role
   const roleObject = {
     role_name: req.body.role_name,
-    // created_at: req.body.created_at,
-    // updated_at: req.body.updated_at
+
   };
 
   // Save role in the database
@@ -32,17 +31,7 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
   role.findAll({
-    //     include: [
-    //   { 
-    //     model: user,
-    //     as: 'user',
-    //     attributes: ["user_id", "user_pwd", "user_name", "user_firstname", "user_tel", "user_mail", "user_address", "user_siret", "account_validity"],
-    //     through: {
-    //       attributes: ["role_id", "user_id"]
-    //     }
-    //   }
 
-    // ]
   })
     .then((data) => {
       res.status(200).send(data);
@@ -58,17 +47,7 @@ exports.findOne = (req, res) => {
   const id = req.params.id;
 
   role.findByPk(id, { 
-  //           include: [
-  //     { 
-  //       model: user,
-  //       as: 'user',
-  //       attributes: ["user_id", "user_pwd", "user_name", "user_firstname", "user_tel", "user_mail", "user_address", "user_siret", "account_validity"],
-  //       through: {
-  //         attributes: ["role_id", "user_id"]
-  //       }
-  //     }
 
-  //   ]
   })
     .then((data) => {
       res.status(200).send(data);
@@ -85,17 +64,7 @@ exports.update = (req, res) => {
 
   role.update(req.body, {
     where: {id: id},
-  //           include: [
-  //     { 
-  //       model: user,
-  //       as: 'user',
-  //       attributes: ["user_id", "user_pwd", "user_name", "user_firstname", "user_tel", "user_mail", "user_address", "user_siret", "account_validity"],
-  //       through: {
-  //         attributes: ["role_id", "user_id"]
-  //       }
-  //     }
 
-  //   ]
   })
     .then(() => {
       res.status(200).send({ message: "role was updated successfully", });
