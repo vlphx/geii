@@ -88,11 +88,11 @@ exports.delete = (req, res) => {
     .then((num) => {
       if (num == 1) {
         res.status(200).send({
-          message: "role was deleted successfully!",
+          message: "user role was deleted successfully!",
         });
       } else {
         res.status(400).send({
-          message: `Cannot delete role with id=${id}. Maybe role was not found!`,
+          message: `Cannot delete user role with id=${id}. Maybe role was not found!`,
         });
       }
     })
