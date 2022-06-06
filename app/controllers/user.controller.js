@@ -17,6 +17,7 @@ exports.create = (req, res) => {
     user_pwd: req.body.user_pwd,
     user_name: req.body.user_name,
     user_firstname: req.body.user_firstname,
+    user_company_name: req.body.user_company_name,
     user_tel: req.body.user_tel,
     user_mail: req.body.user_mail,
     user_address:req.body.user_address,
@@ -90,41 +91,41 @@ exports.findOne = (req, res) => {
   const id = req.params.id;
 
   user.findByPk(id, { 
-        include: [
-      { 
-        model: role,
-        as: 'role',
-        attributes: ["role_id", "role_name"],
-        through: {
-          attributes: ["role_id", "user_id"]
-        }
-      },
-            { 
-        model: classe,
-        as: 'classe',
-        attributes: ["classe_id", "classe_name"],
-        through: {
-          attributes: ["classe_id", "user_id"]
-        }
-      },
-            { 
-        model: offres,
-        as: 'offres',
-        attributes: ["offre_id", "offre_name", "offre_type"],
-        through: {
-          attributes: ["offre_id", "user_id"]
-        }
-      },
-                        { 
-        model: matiere,
-        as: 'matiere',
-        attributes: ["matiere_id", "matiere_name"],
-        through: {
-          attributes: ["matiere_id", "user_id", "note"]
-        }
-      }
+    //     include: [
+    //   { 
+    //     model: role,
+    //     as: 'role',
+    //     attributes: ["role_id", "role_name"],
+    //     through: {
+    //       attributes: ["role_id", "user_id"]
+    //     }
+    //   },
+    //         { 
+    //     model: classe,
+    //     as: 'classe',
+    //     attributes: ["classe_id", "classe_name"],
+    //     through: {
+    //       attributes: ["classe_id", "user_id"]
+    //     }
+    //   },
+    //         { 
+    //     model: offres,
+    //     as: 'offres',
+    //     attributes: ["offre_id", "offre_name", "offre_type"],
+    //     through: {
+    //       attributes: ["offre_id", "user_id"]
+    //     }
+    //   },
+    //                     { 
+    //     model: matiere,
+    //     as: 'matiere',
+    //     attributes: ["matiere_id", "matiere_name"],
+    //     through: {
+    //       attributes: ["matiere_id", "user_id", "note"]
+    //     }
+    //   }
 
-    ]
+    // ]
   } )
     .then((data) => {
       res.status(200).send(data);
@@ -136,6 +137,59 @@ exports.findOne = (req, res) => {
     });
 };
 
+exports.findByEmail = (req, res) => {
+  const mail = req.params.email;
+  const pwd = req.params.pwd;
+  console.log(typeof user_mail)
+
+  user.findOne( { 
+    attributes : ['user_id','user_firstname','user_tel', 'user_name','user_mail'],
+    where: { user_mail: mail, user_pwd:pwd},
+    //     include: [
+    //   { 
+    //     model: role,
+    //     as: 'role',
+    //     attributes: ["role_id", "role_name"],
+    //     through: {
+    //       attributes: ["role_id", "user_id"]
+    //     }
+    //   },
+    //         { 
+    //     model: classe,
+    //     as: 'classe',
+    //     attributes: ["classe_id", "classe_name"],
+    //     through: {
+    //       attributes: ["classe_id", "user_id"]
+    //     }
+    //   },
+    //         { 
+    //     model: offres,
+    //     as: 'offres',
+    //     attributes: ["offre_id", "offre_name", "offre_type"],
+    //     through: {
+    //       attributes: ["offre_id", "user_id"]
+    //     }
+    //   },
+    //                     { 
+    //     model: matiere,
+    //     as: 'matiere',
+    //     attributes: ["matiere_id", "matiere_name"],
+    //     through: {
+    //       attributes: ["matiere_id", "user_id", "note"]
+    //     }
+    //   }
+
+    // ]
+  } )
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error retrieving user with email=" + user_mail,
+      });
+    });
+};
 
 exports.update = (req, res) => {
   const id = req.params.id;

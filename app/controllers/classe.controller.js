@@ -33,17 +33,17 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
   classe.findAll({
-            include: [
-      { 
-        model: User,
-        as: 'user',
-        attributes: ["user_id", "user_pwd", "user_name", "user_firstname", "user_tel", "user_mail", "user_address", "user_siret", "account_validity"],
-        through: {
-          attributes: ["classe_id", "user_id"]
-        }
-      }
+    //         include: [
+    //   { 
+    //     model: User,
+    //     as: 'user',
+    //     attributes: ["user_id", "user_pwd", "user_name", "user_firstname", "user_tel", "user_mail", "user_address", "user_siret", "account_validity"],
+    //     through: {
+    //       attributes: ["classe_id", "user_id"]
+    //     }
+    //   }
 
-    ]
+    // ]
   })
     .then((data) => {
       res.status(200).send(data);

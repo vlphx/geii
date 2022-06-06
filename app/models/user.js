@@ -19,6 +19,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(50),
       allowNull: true
     },
+        user_company_name: {
+      type: DataTypes.STRING(50),
+      allowNull: true
+    },
     user_tel: {
       type: DataTypes.INTEGER,
       allowNull: true

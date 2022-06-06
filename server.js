@@ -20,14 +20,14 @@ const database = require("./app/models");
  database.sequelize.sync();
 
 // In development, you may need to drop existing tables and re-sync database. Just use force: true as following code:
-//database.sequelize.sync({ force: true }).then(() => {
+// database.sequelize.sync({ force: true }).then(() => {
 //  console.log("Drop and re-sync database.");
-//});
+// });
 
 let count="1";
 
 app.get('/', (req, res) => {
-  res.json('bienvenue'
+  res.json('bienvenue sur l\'espace GEII'
     // { "changed": count }
   );
 })
