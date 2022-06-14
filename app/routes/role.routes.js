@@ -3,10 +3,10 @@ module.exports = app => {
 
     var router = require("express").Router();
 
-    // Create a new rle 
+    // Create a new  
     router.post("/",  role.create);
 
-    // Retrieve all tag
+    // Retrieve all 
     router.get("/", role.findAll);
 
     // Retrieve a single role with id
@@ -15,7 +15,7 @@ module.exports = app => {
     // Update a role with id
     router.put("/:id", role.update);
 
-    // Delete a role with id (verify if a valid token is in the request and if the user is an admin)
+    // Delete a role with id 
     router.delete("/:id",  role.delete);
 
 

@@ -3,10 +3,10 @@ module.exports = app => {
 
     var router = require("express").Router();
 
-    // Create a new rle 
+    // Create a new  
     router.post("/",  classe.create);
 
-    // Retrieve all tag
+    // Retrieve all 
     router.get("/", classe.findAll);
 
     // Retrieve a single classe with id
@@ -15,7 +15,7 @@ module.exports = app => {
     // Update a classe with id
     router.put("/:id", classe.update);
 
-    // Delete a classe with id (verify if a valid token is in the request and if the user is an admin)
+    // Delete a classe with id
     router.delete("/:id",  classe.delete);
 
 

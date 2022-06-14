@@ -3,10 +3,10 @@ module.exports = app => {
 
     var router = require("express").Router();
 
-    // Create a new rle 
+    // Create a new  
     router.post("/",  supportCours.create);
 
-    // Retrieve all tag
+    // Retrieve all 
     router.get("/", supportCours.findAll);
 
     // Retrieve a single supportCours with id
@@ -15,7 +15,7 @@ module.exports = app => {
     // Update a supportCours with id
     router.put("/:id", supportCours.update);
 
-    // Delete a supportCours with id (verify if a valid token is in the request and if the supportCours is an admin)
+    // Delete a supportCours with id 
     router.delete("/:id",  supportCours.delete);
 
 

@@ -89,17 +89,7 @@ exports.update = (req, res) => {
 
   offres.update(req.body, {
     where: {id: id},
-  //           include: [
-  //     { 
-  //       model: user,
-  //       as: 'user',
-  //       attributes: ["user_id", "user_pwd", "user_name", "user_firstname", "user_tel", "user_mail", "user_address", "user_siret", "account_validity"],
-  //       through: {
-  //         attributes: ["role_id", "user_id"]
-  //       }
-  //     }
 
-  //   ]
   })
     .then(() => {
       res.status(200).send({ message: "offres was updated successfully", });

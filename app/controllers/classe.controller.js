@@ -15,8 +15,7 @@ exports.create = (req, res) => {
   const classeObject = {
     classe_id: req.body.classe_id,
     classe_name: req.body.classe_name,
-    // created_at: req.body.created_at,
-    // updated_at: req.body.updated_at
+
   };
 
   // Save classe in the database
@@ -33,17 +32,7 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
   classe.findAll({
-    //         include: [
-    //   { 
-    //     model: User,
-    //     as: 'user',
-    //     attributes: ["user_id", "user_pwd", "user_name", "user_firstname", "user_tel", "user_mail", "user_address", "user_siret", "account_validity"],
-    //     through: {
-    //       attributes: ["classe_id", "user_id"]
-    //     }
-    //   }
 
-    // ]
   })
     .then((data) => {
       res.status(200).send(data);
@@ -87,17 +76,7 @@ exports.update = (req, res) => {
 
   classe.update(req.body, {
     where: {id: id},
-  //           include: [
-  //     { 
-  //       model: User,
-  //       as: 'user',
-  //       attributes: ["user_id", "user_pwd", "user_name", "user_firstname", "user_tel", "user_mail", "user_address", "user_siret", "account_validity"],
-  //       through: {
-  //         attributes: ["role_id", "user_id"]
-  //       }
-  //     }
 
-  //   ]
   })
     .then(() => {
       res.status(200).send({ message: "classe was updated successfully", });

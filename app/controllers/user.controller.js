@@ -23,8 +23,7 @@ exports.create = (req, res) => {
     user_address:req.body.user_address,
     user_siret: req.body.user_siret,
     account_validity: req.body.account_validity
-    // created_at: req.body.created_at,
-    // updated_at: req.body.updated_at
+
   };
 
   // Save user in the database
@@ -41,41 +40,7 @@ exports.create = (req, res) => {
 
 exports.findAll = (req, res) => {
   user.findAll({
-    // include: [
-    //   { 
-    //     model: role,
-    //     as: 'role',
-    //     attributes: ["role_id", "role_name"],
-    //     through: {
-    //       attributes: ["role_id", "user_id"]
-    //     }
-    //   },
-    //         { 
-    //     model: classe,
-    //     as: 'classe',
-    //     attributes: ["classe_id", "classe_name"],
-    //     through: {
-    //       attributes: ["classe_id", "user_id"]
-    //     }
-    //   },
-    //         { 
-    //     model: offres,
-    //     as: 'offres',
-    //     attributes: ["offre_id", "offre_name", "offre_type"],
-    //     through: {
-    //       attributes: ["offre_id", "user_id"]
-    //     }
-    //   },
-    //         { 
-    //     model: matiere,
-    //     as: 'matiere',
-    //     attributes: ["matiere_id", "matiere_name"],
-    //     through: {
-    //       attributes: ["matiere_id", "user_id", "note"]
-    //     }
-    //   }
 
-    // ]
   })
     .then((data) => {
       res.status(200).send(data);
@@ -92,41 +57,7 @@ exports.findOne = (req, res) => {
   const id = req.params.id;
 
   user.findByPk(id, { 
-    //     include: [
-    //   { 
-    //     model: role,
-    //     as: 'role',
-    //     attributes: ["role_id", "role_name"],
-    //     through: {
-    //       attributes: ["role_id", "user_id"]
-    //     }
-    //   },
-    //         { 
-    //     model: classe,
-    //     as: 'classe',
-    //     attributes: ["classe_id", "classe_name"],
-    //     through: {
-    //       attributes: ["classe_id", "user_id"]
-    //     }
-    //   },
-    //         { 
-    //     model: offres,
-    //     as: 'offres',
-    //     attributes: ["offre_id", "offre_name", "offre_type"],
-    //     through: {
-    //       attributes: ["offre_id", "user_id"]
-    //     }
-    //   },
-    //                     { 
-    //     model: matiere,
-    //     as: 'matiere',
-    //     attributes: ["matiere_id", "matiere_name"],
-    //     through: {
-    //       attributes: ["matiere_id", "user_id", "note"]
-    //     }
-    //   }
 
-    // ]
   } )
     .then((data) => {
       res.status(200).send(data);
@@ -146,41 +77,7 @@ exports.findByEmail = (req, res) => {
   user.findOne( { 
     attributes : ['user_id','user_firstname','user_tel', 'user_name','user_mail'],
     where: { user_mail: mail, user_pwd:pwd},
-    //     include: [
-    //   { 
-    //     model: role,
-    //     as: 'role',
-    //     attributes: ["role_id", "role_name"],
-    //     through: {
-    //       attributes: ["role_id", "user_id"]
-    //     }
-    //   },
-    //         { 
-    //     model: classe,
-    //     as: 'classe',
-    //     attributes: ["classe_id", "classe_name"],
-    //     through: {
-    //       attributes: ["classe_id", "user_id"]
-    //     }
-    //   },
-    //         { 
-    //     model: offres,
-    //     as: 'offres',
-    //     attributes: ["offre_id", "offre_name", "offre_type"],
-    //     through: {
-    //       attributes: ["offre_id", "user_id"]
-    //     }
-    //   },
-    //                     { 
-    //     model: matiere,
-    //     as: 'matiere',
-    //     attributes: ["matiere_id", "matiere_name"],
-    //     through: {
-    //       attributes: ["matiere_id", "user_id", "note"]
-    //     }
-    //   }
 
-    // ]
   } )
     .then((data) => {
       res.status(200).send(data);
@@ -197,17 +94,7 @@ exports.update = (req, res) => {
 
   user.update(req.body, {
     where: {id: id},
-  //           include: [
-  //     { 
-  //       model: user,
-  //       as: 'user',
-  //       attributes: ["user_id", "user_pwd", "user_name", "user_firstname", "user_tel", "user_mail", "user_address", "user_siret", "account_validity"],
-  //       through: {
-  //         attributes: ["role_id", "user_id"]
-  //       }
-  //     }
 
-  //   ]
   })
     .then(() => {
       res.status(200).send({ message: "user was updated successfully", });

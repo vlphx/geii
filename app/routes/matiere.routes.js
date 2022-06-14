@@ -3,10 +3,10 @@ module.exports = app => {
 
     var router = require("express").Router();
 
-    // Create a new rle 
+    // Create a new 
     router.post("/",  matiere.create);
 
-    // Retrieve all tag
+    // Retrieve all 
     router.get("/", matiere.findAll);
 
     // Retrieve a single matiere with id
@@ -15,7 +15,7 @@ module.exports = app => {
     // Update a matiere with id
     router.put("/:id", matiere.update);
 
-    // Delete a matiere with id (verify if a valid token is in the request and if the matiere is an admin)
+    // Delete a matiere with id
     router.delete("/:id",  matiere.delete);
 
 

@@ -1,7 +1,7 @@
 const db = require("../models");
 const { matiere } = db.initModels;
 // const User = db.userModel;
-const Op = db.Sequeliz
+const Op = db.Sequelize.Op;
 
 
 exports.create = (req, res) => {
@@ -90,17 +90,7 @@ exports.update = (req, res) => {
 
   matiere.update(req.body, {
     where: {id: id},
-  //           include: [
-  //     { 
-  //       model: User,
-  //       as: 'user',
-  //       attributes: ["user_id", "user_pwd", "user_name", "user_firstname", "user_tel", "user_mail", "user_address", "user_siret", "account_validity"],
-  //       through: {
-  //         attributes: ["role_id", "user_id"]
-  //       }
-  //     }
 
-  //   ]
   })
     .then(() => {
       res.status(200).send({ message: "user was updated successfully", });

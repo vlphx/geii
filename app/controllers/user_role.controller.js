@@ -44,38 +44,7 @@ exports.findAll = (req, res) => {
     });
 };
 
-// exports.findOne = (req, res) => {
-//   const id = req.params.id;
 
-//   user_role.findByPk(id, { 
-
-//   })
-//     .then((data) => {
-//       res.status(200).send(data);
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message: "Error retrieving role with id=" + id,
-//       });
-//     });
-// };
-
-// exports.update = (req, res) => {
-//   const id = req.params.id;
-
-//   role.update(req.body, {
-//     where: {id: id},
-
-//   })
-//     .then(() => {
-//       res.status(200).send({ message: "role was updated successfully", });
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message: "Error retrieving role with id=" + id,
-//       });
-//     });
-// };
 
 // Delete a role with the specified id in the request
 exports.delete = (req, res) => {
